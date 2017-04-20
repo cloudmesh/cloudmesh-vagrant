@@ -11,6 +11,8 @@ from cloudmesh_client.common.Printer import Printer
 from cloudmesh_client.common.Shell import Shell
 import sys
 import os
+
+
 # from cloudmesh_vagrant.version import __version__
 
 
@@ -29,7 +31,6 @@ def defaults():
     return d
 
 
-
 def _convert(lst, id="name"):
     d = {}
     for entry in lst:
@@ -37,7 +38,7 @@ def _convert(lst, id="name"):
     return d
 
 
-def _LIST_PRINT(l, output, order=None):
+def _list_print(l, output, order=None):
     if output in ["yaml", "dict", "json"]:
         l = _convert(l)
 
@@ -52,7 +53,6 @@ def _LIST_PRINT(l, output, order=None):
 
 
 class VagrantCommand(PluginCommand):
-
     @command
     def do_vagrant(self, args, arguments):
         """
@@ -96,7 +96,7 @@ class VagrantCommand(PluginCommand):
         """
         if arguments.image and arguments.list:
             l = vagrant.image.list(verbose=arguments.verbose)
-            _LIST_PRINT(l, arguments.format, order=["name", "provider", "date"])
+            _list_print(l, arguments.format, order=["name", "provider", "date"])
 
         elif arguments.image and arguments.add:
             l = vagrant.image.add(arguments.NAME)
@@ -108,14 +108,14 @@ class VagrantCommand(PluginCommand):
 
         elif arguments.vm and arguments.list:
             l = vagrant.vm.list()
-            _LIST_PRINT(l,
-                       arguments.format,
-                       order=["name", "state", "id", "provider", "directory"])
+            _list_print(l,
+                        arguments.format,
+                        order=["name", "state", "id", "provider", "directory"])
 
         elif arguments.create and arguments.list:
 
             result = Shell.cat("{NAME}/Vagrantfile".format(**arguments))
-            print (result)
+            print(result)
 
         elif arguments.create:
 
@@ -138,7 +138,7 @@ class VagrantCommand(PluginCommand):
 
             result = Printer.attribute(d, output=arguments.format)
 
-            print (result)
+            print(result)
 
         elif arguments.ip:
 
@@ -167,11 +167,10 @@ class VagrantCommand(PluginCommand):
             else:
                 for element in data:
                     ip = element['ip']
-                    if  ip == "127.0.0.1" or ip.startswith("10."):
+                    if ip == "127.0.0.1" or ip.startswith("10."):
                         pass
                     else:
-                        print (element['ip'])
-
+                        print(element['ip'])
 
         elif arguments.boot:
 
@@ -203,8 +202,8 @@ class VagrantCommand(PluginCommand):
                 if result is not None:
                     lines = result.splitlines()[:-1]
                     for line in lines:
-                        print (line)
+                        print(line)
 
         else:
 
-            print ("use help")
+            print("use help")

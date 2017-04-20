@@ -3,6 +3,7 @@ from cloudmesh.common.dotdict import dotdict
 from cloudmesh.common.console import Console
 import os
 
+
 class image(object):
     @classmethod
     def list(cls):
@@ -26,7 +27,6 @@ class image(object):
 
     @classmethod
     def add(cls, name):
-
         result = Shell.execute("vagrant", ["box", "add", name])
         return result
 
@@ -34,4 +34,4 @@ class image(object):
     def find(cls, name):
         Console.error("not yet implemented")
         d = {'key': name}
-        os.system (u"open " + u"https://atlas.hashicorp.com/boxes/search?utf8=\&sort=\&provider=\&q={key}".format(**d))
+        os.system(u"open " + u"https://atlas.hashicorp.com/boxes/search?utf8=\&sort=\&provider=\&q={key}".format(**d))

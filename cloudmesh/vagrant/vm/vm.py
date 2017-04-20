@@ -4,7 +4,6 @@ from cloudmesh.common.dotdict import dotdict
 import textwrap
 import os
 from cloudmesh.common.console import Console
-from pprint import pprint
 
 
 class vm(object):
@@ -36,8 +35,6 @@ class vm(object):
             arg.provision += 12 * " " + "  " + "SHELL\n"
         else:
             arg.provision = ""
-
-
 
         # the 12 is derived from the indentation of Vagrant in the script
         script = textwrap.dedent("""
@@ -72,7 +69,7 @@ class vm(object):
         for line in lines:
             attribute, value = line.strip().split(" ", 1)
             if attribute == "IdentityFile":
-                value = value.replace('"','')
+                value = value.replace('"', '')
 
             data[attribute] = value
         return data
